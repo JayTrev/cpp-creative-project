@@ -39,7 +39,6 @@ int getChoice(int min, int max) {
     }
 }
 
-// --- ENCOUNTER ---
 void encounter(int &health) {
     string enemies[4] = {"Giant Radscorpion", "Fiend Raider", "Nightstalker", "Cazador"};
     int damage[4] = {20, 15, 25, 30};
@@ -51,12 +50,12 @@ void encounter(int &health) {
     int choice = getChoice(1, 2);
 
     if (choice == 1) {
-        cout << "You fight bravely...\n";
+        cout << "You fight bravely.\n";
         if (rand() % 2 == 0) {
             cout << "You defeat the enemy but take some damage!\n";
             health -= damage[enemyIndex];
         } else {
-            cout << "You narrowly win without taking damage.\n";
+            cout << "You defeat the enemy without taking damage.\n";
         }
     } else {
         cout << "You run away but trip on a rock, losing 10 HP!\n";
@@ -71,7 +70,6 @@ void encounter(int &health) {
 bool questDecision(int &health) {
     cout << "\nYou reach the old quarry where the chip is hidden.\n";
 
-    // 🆕 Extra encounter before choosing the tunnel
     cout << "Before entering, you notice movement nearby...\n";
     encounter(health);
     if (health <= 0) return false;
@@ -83,21 +81,20 @@ bool questDecision(int &health) {
 
     if (choice == 1) {
         cout << "You enter the dark tunnel...\n";
-        encounter(health); // Danger in the tunnel
+        encounter(health); 
         if (health <= 0) return false;
 
         cout << "Inside, you find the water chip!\n";
 
-        // 🆕 Extra encounter before returning to the saloon
         cout << "\nAs you make your way back toward Goodsprings, danger strikes again!\n";
         encounter(health);
         if (health <= 0) return false;
 
-        cout << "You limp your way back to the Prospector Saloon...\n";
+        cout << "You march back to the Prospector Saloon...\n";
         return true;
     } else {
         cout << "You climb the ridge and a Deathclaw ambushes you!\n";
-        health -= 40;
+        health -= 99;
         showHealth(health, 100);
         if (health <= 0) return false;
 
