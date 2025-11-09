@@ -1,0 +1,7 @@
+Game result: WIN
+Game result: WIN
+Game result: LOSE
+Game result: WIN
+Game result: WIN
+Game result: LOSE
+Game result: WIN

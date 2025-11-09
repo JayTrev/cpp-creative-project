@@ -1,0 +1,37 @@
+#include "game.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(static_cast<unsigned>(time(nullptr)));
+
+    int health = 100;
+    bool win = false;
+
+    intro();
+    showHealth(health, 100);
+
+    cout << "\nDo you accept the stranger's quest?\n1. Yes\n2. No\n";
+    int choice = getChoice(1, 2);
+
+    if (choice == 2) {
+        cout << "You refuse. The stranger leaves, disappointed.\n";
+        saveResultToFile("NO QUEST");
+        return 0;
+    }
+
+    cout << "\nYou set off toward the quarry...\n";
+
+    for (int i = 0; i < 2 && health > 0; i++) {
+        encounter(health);
+    }
+
+    if (health > 0) {
+        win = questDecision(health);
+    }
+
+    endGame(win);
+    return 0;
+}
