@@ -41,10 +41,10 @@ int getChoice(int min, int max) {
 
 // --- ENCOUNTER ---
 void encounter(int &health) {
-    string enemies[3] = {"Giant Radscorpion", "Fiend Raider", "Nightstalker"};
-    int damage[3] = {20, 15, 25};
+    string enemies[4] = {"Giant Radscorpion", "Fiend Raider", "Nightstalker", "Cazador"};
+    int damage[4] = {20, 15, 25, 30};
 
-    int enemyIndex = rand() % 3;
+    int enemyIndex = rand() % 4;
     cout << "You encounter a " << enemies[enemyIndex] << "!\n";
 
     cout << "1. Fight\n2. Run\n";
@@ -70,17 +70,30 @@ void encounter(int &health) {
 // --- QUEST DECISION ---
 bool questDecision(int &health) {
     cout << "\nYou reach the old quarry where the chip is hidden.\n";
-    cout << "Inside, you find two paths:\n";
+
+    // 🆕 Extra encounter before choosing the tunnel
+    cout << "Before entering, you notice movement nearby...\n";
+    encounter(health);
+    if (health <= 0) return false;
+
+    cout << "\nInside the quarry, you find two paths:\n";
     cout << "1. Dark tunnel\n2. Sunlit path over the ridge\n";
 
     int choice = getChoice(1, 2);
 
     if (choice == 1) {
         cout << "You enter the dark tunnel...\n";
+        encounter(health); // Danger in the tunnel
+        if (health <= 0) return false;
+
+        cout << "Inside, you find the water chip!\n";
+
+        // 🆕 Extra encounter before returning to the saloon
+        cout << "\nAs you make your way back toward Goodsprings, danger strikes again!\n";
         encounter(health);
         if (health <= 0) return false;
 
-        cout << "Inside you find the water chip!\n";
+        cout << "You limp your way back to the Prospector Saloon...\n";
         return true;
     } else {
         cout << "You climb the ridge and a Deathclaw ambushes you!\n";
